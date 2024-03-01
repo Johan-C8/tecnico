@@ -2,7 +2,13 @@
     require "config/app.php";
     require "config/database.php";
 
-    
+    $user = getUser($conx, $_SESSION["uid"]);
+
+    if(!isset($_SESSION['uid'])) {
+        $_SESSION['error'] = "Please login first to access dashboard.";
+        header("location: index.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,12 +71,55 @@
                 opacity: 0;
             }
         }
+        a.closem {
+                position: absolute;
+                top: 44px;
+                right: 0px;
+            }
+
+            nav {
+                color: #fff9;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+
+                img {
+                    border: 2px solid #fff;
+                    border-radius: 60%;
+                    object-fit: cover;
+                    height: 200px;
+                    width: 200px;
+                }
+
+                h4, h5 {
+                    margin: 0;
+                }
+
+                a.closes {
+                    border: 2px solid #fff;
+                }
+            }
+        
+        div.menu.open {
+            top: 0;
+            opacity: 1;
+        }
+
+
+
     </style>
 </head>
 <body>
     <div class="menu">
         <a href="javascript:;" class="closem" >X</a>
+        
         <nav>
+            <img src="<?=URLIMGS ."/".$user['photo'] ?>" alt="photo">
+
+            <h4> <?=$user['fullname']?> </h4>
+            <h5> <?=$user['role']?> </h5>
+
             <a href="close.php">Close session</a>
         </nav>
 
@@ -88,31 +137,47 @@
             </a>
 
         </header>
+        <?php if ($_SESSION['urole'] == 'Admin'): ?>
         <section class="dashboard">
             <h1>Dashboard</h1>
             <menu>
                 <ul>
                     <li>
-                        <a href="users/index.html">
-                            <img src="<?php echo URLIMGS  . "/ico-users.svg" ?> " alt="Users">
+                        <a href="#">
+                            <img src="<?php echo URLIMGS . "/ico-users.svg" ?>" alt="Users">
                             <span>Module User</span>    
                         </a>
                     </li>
                     <li>
-                        <a href="pets/index.html">
-                            <img src=" <?php echo URLIMGS . "/ico-pets.svg" ?> " alt="Pets">
+                        <a href="#">
+                            <img src="<?php echo URLIMGS . "/ico-pets.svg" ?>" alt="Pets">
                             <span>Module Pets</span>
                         </a>
                     </li>
                     <li>
-                        <a href="adoptions/index.html">
-                            <img src=" <?php echo URLIMGS . "/ico-adoptions.svg" ?> " alt="Adoptions">
+                        <a href="#">
+                            <img src="<?php echo URLIMGS . "/ico-adoptions.svg" ?>" alt="Adoptions">
                             <span>Module Adoptions</span>
                         </a>
                     </li>
                 </ul>
             </menu>
         </section>
+        <?php elseif ($_SESSION['urole'] == 'Customer'): ?>
+            <section class="dashboard">
+                <h1>Dashboard</h1>
+                <menu>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <img src="<?php echo URLIMGS . "/ico-adoptions.svg" ?>" alt="Adoptions">
+                                <span>Module Adoptions</span>
+                            </a>
+                        </li>
+                    </ul>
+                </menu>
+            </section>
+        <?php endif ?>
     </main>
 </body>
 </html>

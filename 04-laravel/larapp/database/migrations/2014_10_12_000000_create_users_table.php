@@ -8,21 +8,21 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('document')->unique();
             $table->string('fullname');
-            $table->string('photo')->default('ico-user.svg');
+            $table->string('gender')->nullable();
+            $table->string('birth')->nullable();
+            $table->string('photo');
             $table->string('phone');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('Customer');
+            $table->string('role')->default('customer');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -30,10 +30,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }

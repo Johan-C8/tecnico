@@ -2,7 +2,7 @@
 ## Técnico  en Desarrollo de Software
 ---
 
-![Hollow](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqYVEWFmINrX44yTYgdqoBJSCWj1QSG6SJa-HMT7lig&s)
+![Hollow](https://img.leboncoin.fr/api/v1/lbcpb1/images/23/5d/2a/235d2a63cba40c6aeb8a00ec4c96201f962bd90c.jpg?rule=ad-large)
 
 | Tema | Tipo | 
 |---------|-------| 

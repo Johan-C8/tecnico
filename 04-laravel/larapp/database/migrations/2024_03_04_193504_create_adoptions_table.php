@@ -15,12 +15,16 @@ return new class extends Migration
     {
         Schema::create('adoptions', function (Blueprint $table) {
             $table->id();
+            
             $table->unsignedBigInteger('user_id');
+
             $table->unsignedBigInteger('pet_id');
+
             $table->foreign('user_id')->references('id')
-                                        ->on('users');
+                                      ->on('users');
+
             $table->foreign('pet_id')->references('id')
-                                        ->on('pets');
+                                     ->on('pets');
 
             $table->timestamps();
         });

@@ -16,11 +16,11 @@ class Pet extends Model
         'weight',
         'age',
         'breed',
-        'location',
+        'location'
     ];
 
-    //RelationShip: (Pet has one adoption)
-    public function adoptions() {
+    // RelationShip
+    public function adoption() {
         return $this->hasOne('App\Models\Adoption');
     }
 }

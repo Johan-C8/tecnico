@@ -23,20 +23,23 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $birth = $this->faker->dateTimeBetween('1990-01-01', '2012-12-31')->format('d/m/Y');
-        $gender = $this->faker->randomElement(['male', 'female']);
-        $photoPath = $this->faker->image('public/images', 400, 300, null, false);
+        $gender = fake()->randomElement(array('Female', 'Male'));
+
+        $name = ($gender == 'Female') ? $name = fake()->firstNameFemale() : $name = fake()->firstNameMale();
+
+        $photo = fake()->image(public_path('images/'), 140, 140, null, false);
+
         return [
-            'document' => fake()->randomNumber(9, true),
-            'fullname' => fake()->firstName($gender) . " " .fake()->lastName(),
-            'gender' => $gender,
-            'birth' => $birth,
-            'photo' => 'images/' . basename($photoPath),
-            'phone' => fake()->phoneNumber(),
-            'email' => fake()->unique()->safeEmail(),
+            'document'          => fake()->randomNumber(9, true),
+            'fullname'          => $name . " " . fake()->lastName(),
+            'gender'            => $gender,
+            'birthdate'         => fake()->dateTimeBetween('1970-01-01', '2022-12-31'),
+            'photo'             => substr($photo, 7),
+            'phone'             => fake()->phoneNumber(),
+            'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('12345'),
-            'remember_token' => Str::random(10),
+            'password'          => static::$password ??= Hash::make('12345'),
+            'remember_token'    => Str::random(10),
         ];
     }
 

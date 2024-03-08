@@ -20,10 +20,13 @@ class User extends Authenticatable
     protected $fillable = [
         'document',
         'fullname',
+        'gender',
+        'birthdate',
         'photo',
+        'phone',
         'email',
         'password',
-        'role',
+        'role'
     ];
 
     /**
@@ -46,8 +49,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // RelationsShip: (user has many adoptions)
-    public function adoptions(){
+    // RelationShip
+    public function adoptions() {
         return $this->hasMany('App\Models\Adoption');
     }
 }

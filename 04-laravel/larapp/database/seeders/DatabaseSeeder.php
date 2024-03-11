@@ -9,17 +9,17 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
         $this->call([
             UserSeeder::class,
-            PetSeeder::class
+            PetSeeder::class,
         ]);
 
-        \App\Models\User::factory(50)->create();
-
-        $this->call([AdoptionSeeder::class]);
+    \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

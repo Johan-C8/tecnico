@@ -1,8 +1,7 @@
-
 <table>
     <thead>
         <tr>
-            <th>ID</th>
+            <th>Id</th>
             <th>Name</th>
             <th>Kind</th>
             <th>Breed</th>
@@ -10,18 +9,15 @@
         </tr>
     </thead>
     <tbody>
-@foreach ($pets as $pet)
-    
-        <tr>
-            <td>{{ $pet ->id}} </td>
-            <td>{{ $pet ->name}} </td> 
-            <td>{{ $pet ->kind}} </td>
-            <td>{{ $pet ->breed}} </td>
-            <td>{{ $pet ->Location}} </td>
+    @foreach ($pets as $pet)
+         <tr>
+             <td>{{$pet ->id}}</td>
+             <td>{{$pet ->name}}</td>
+             <td>{{$pet ->kind}}</td>
+             <td>{{$pet ->breed}}</td>
+             <td>{{$pet ->location}}</td>
         </tr>
-
-
-
-@endforeach
+    @endforeach
     </tbody>
 </table>
+

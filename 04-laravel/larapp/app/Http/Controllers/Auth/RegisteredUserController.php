@@ -31,15 +31,33 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'document'     => ['required', 'numeric', 'unique:'.User::class],
+            'fullname'     => ['required', 'string', 'max:64'],
+            'gender'       => ['required'],
+            'birth'        => ['required', 'date'],
+            'photo'        => ['required', 'image'],
+            'phone'        => ['required'],
+            'email'        => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password'     => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+
+        //upload file
+
+        if ($request->hasFile('photo')) {
+            $photo = time() .'' . $request->file('photo')->extension();
+            $request->file('photo')->move(public_path('images'), $photo);
+        }
+
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'document'  => $request->document,
+            'fullname'  => $request->fullname,
+            'gender'    => $request->gender,
+            'birth'  => $request->birth,
+            'photo'     => $photo,
+            'phone'     => $request->phone,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
         ]);
 
         event(new Registered($user));

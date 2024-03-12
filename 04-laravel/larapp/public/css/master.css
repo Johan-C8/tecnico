@@ -98,15 +98,15 @@ main {
             margin-top: 40px;
             margin-bottom: 1rem;
 
-            input, button {
+            input, select, button {
                 outline: none;
                 border: none;
                 border-radius: 50px;
                 padding: 20px;
                 width: 380px;
             }
-
-            input {
+            
+            input, select {
                 background-color: #fffb;
                 color: var(--color-pri);
                 font-size: 24px;
@@ -122,6 +122,13 @@ main {
                     background-color: #fff;
                 }
             }
+            
+            select{
+                
+                appearance: 100;
+                width: 380px;
+            }
+
 
             button {
                 align-items: center;

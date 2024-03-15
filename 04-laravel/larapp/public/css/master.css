@@ -475,6 +475,25 @@ main {
         cursor: pointer;
         color: #fff;
     }
+    table{
+        tfoot{
+            color: white;
+            nav{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                div.flex{
+                    display: flex;
+                    justify-content: center;
+                }
+
+                a:is(:link, :visited)´{
+                color: #fff9;
+            }
+            }
+        }
+    }
     
 }
 

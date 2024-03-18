@@ -7,80 +7,139 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::all();
+        //$users = User::all();
+        //$users = User::simplePaginate(10);
+        //$users = User::latest()->get();
+        $users = User::paginate(10);
         return view('users.index')->with('users', $users);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $validated = $request->validate([
+            'document'  => ['required', 'numeric', 'unique:'.User::class],
+            'fullname'  => ['required', 'string', 'max:64'],
+            'gender'    => ['required'],
+            'birth'     => ['required', 'date'],
+            'photo'     => ['required', 'image'],
+            'phone'     => ['required'],
+            'email'     => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password'  => ['required', 'confirmed'],
+        ]);
+
+        if ($validated) {
+            // Upload File
+            if ($request->hasFile('photo')) {
+                $photo = time() . '.' . $request->photo->extension();
+                $request->photo->move(public_path('images'), $photo);
+            }
+    
+            $user = User::create([
+                'document'  => $request->document,
+                'fullname'  => $request->fullname,
+                'gender'    => $request->gender,
+                'birth'     => $request->birth,
+                'photo'     => $photo,
+                'phone'     => $request->phone,
+                'email'     => $request->email,
+                'password'  => bcrypt($request->password),
+            ]);
+
+            if ($user) {
+                return redirect('users')->with('message', 'The user: '.$request->fullname.' was successfully added!');
+            }
+
+        }
+
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        //dd($user->toArray());
+        return view('users.show')->with('user', $user);
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.show')->with('user', $user);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'document'  => ['required', 'numeric', 'unique:'.User::class],
+            'fullname'  => ['required', 'string', 'max:64'],
+            'gender'    => ['required'],
+            'birthdate' => ['required', 'date'],
+            'phone'     => ['required'],
+            'email'     => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        ]);
+
+        if ($validated) {
+            // Upload File
+            if ($request->hasFile('photo')) {
+                $image_path = public_path("/images/". $user->photo);
+                if (file_exists($image_path)) {
+                    unlink($image_path);
+                }
+
+
+                
+
+                $photo = time() . '.' . $request->photo->extension();
+                $request->photo->move(public_path('images'), $photo);
+            }else{
+                $photo = $request->photoactual;
+            }
+    
+            $user->document = $request->document;
+                $user->fullname  = $request->fullname;
+                $user->gender    = $request->gender;
+                $user->birthdate = $request->birthdate;
+                $user->photo     = $photo;
+                $user->phone     = $request->phone;
+                $user->email     = $request->email;
+            
+
+            if ($user->save()) {
+                return redirect('users')->with('message', 'The user: '.$request->fullname.' was successfully edited!');
+            }
+
+        }
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        
     }
 }

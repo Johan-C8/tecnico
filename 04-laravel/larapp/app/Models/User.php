@@ -45,12 +45,13 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        //'email_verified_at' => 'datetime',
         //'password' => 'hashed',
     ];
 
-    // RelationShip
+    // RelationShip: (User has many adoptions)
     public function adoptions() {
-        return $this->hasMany('App\Models\Adoption');
+        //return $this->hasMany('App\Models\Adoption');
+        return $this->hasMany(Adoption::class);
     }
 }

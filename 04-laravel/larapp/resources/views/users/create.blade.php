@@ -1,17 +1,18 @@
 @extends('layouts.app')
-
-@section('title', 'Register Page - PetsApp')
+@section('title', 'Create User Page - PetsApp')
 
 @section('content')
-<header>
+<header class="nav level-2">
+    <a href="{{ url('users') }}">
+        <img src="{{ asset('images/ico-back.svg') }}" alt="Back">
+    </a>
     <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+    <a href="javascript:;" class="mburger">
+        <img src="{{ asset('images/mburger.svg') }}" alt="Menu Burger">
+    </a>
 </header>
 <section class="register create">
-    <menu>
-        <a href="{{ url('login/') }}">Login</a>
-        <a href="javascript:;">Register</a>
-    </menu>
-    <form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <img src="{{ asset('images/ico-upload-user.svg') }}" id="upload" width="240px" alt="Upload">
         <input type="file" name="photo" id="photo" accept="image/*">
@@ -27,9 +28,9 @@
         <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
         <input type="password" name="password" placeholder="Password">
         <input type="password" name="password_confirmation" placeholder="Confirmed Password">
-        <button type="submit">Register</button>
+        <button type="submit">Add</button>
     </form>
-</section>   
+</section>
 @endsection
 
 @section('js')

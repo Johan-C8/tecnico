@@ -184,22 +184,26 @@ main {
             &:hover {
                 transform: translate(-10px);
             }
-        }
-    }
 
+        }
+
+        
+    }
+    
     header.nav.level-0 {
         a:first-of-type {
             visibility: hidden;
             pointer-events: none;
         }
     }
-
+    
     header.nav.level-2   {
         a:last-of-type {
             visibility: hidden;
             pointer-events: none;
         }
     }
+    
 
 
     /* - - - - - - - - - - - - - - - - - - - - - - */
@@ -356,9 +360,29 @@ main {
                     }
                 }
             }
+            tbody.adoptions {
+                tr {
+                    justify-content: start;
+                    gap: 4rem;
+                    td:nth-child(2) {
+                        width: 220px;
+                        span:last-child {
+                            font-style: oblique;
+                        }
+                    }
+                    td:first-of-type {
+                        position: relative;
+                        img:last-child {
+                            position: absolute;
+                            left: 50px;
+                        }
+                    }
+                }
+            }
+            
         }
+    
     }
-
     /* - - - - - - - - - - - - - - - - - - - - - - */
     /* S H O W  */
     section.show {
@@ -391,6 +415,7 @@ main {
                 margin: 0;
                 width: 200px;
             }
+            
         }
     }
 
@@ -413,6 +438,9 @@ main {
                 align-items: center;
                 justify-content: center;
                 img {
+                    border-radius: 50px;
+                    border: 2px solid white;
+                    object-fit: cover;
                     margin-top: 0;
                     width: 80px;
                 }
@@ -477,7 +505,7 @@ main {
 
 
     div.menu {
-        background-color: var(--color-pri);
+        background: linear-gradient(#040404, #192930, #42112c);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -505,6 +533,7 @@ main {
             position: absolute;
             top: 44px;
             right: 0px;
+            
         }
 
         nav {

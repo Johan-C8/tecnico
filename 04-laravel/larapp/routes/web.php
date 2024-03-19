@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PetController;
+use App\Http\Controllers\AdoptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,7 +42,16 @@ Route::middleware('auth')->group(function () {
 Route::resources([
     'users' => UserController::class,
     'pets' => PetController::class,
-    //'adoptions' => AdoptionController::class
+    'adoptions' => AdoptionController::class
 ]);
+
+//customer
+Route::get('/mydata', [UserController::class, 'mydata']);
+Route::get('/myadoptions', [AdoptionController::class, 'myadoptions']);
+Route::get('myadoptions/add/{id}', [AdoptionController::class, 'add']);
+Route::get('myadoptions', [AdoptionController::class, 'store']);
+
+
+
 
 require __DIR__.'/auth.php';

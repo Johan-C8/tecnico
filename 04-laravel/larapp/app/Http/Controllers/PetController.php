@@ -9,8 +9,6 @@ class PetController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,8 +18,6 @@ class PetController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -30,21 +26,18 @@ class PetController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //dd($request->all());
         $validated = $request->validate([
-            'name'      => ['required', 'string'],
-            'photo'     => ['required', 'image'],
-            'kind'      => ['required'],
-            'weight'    => ['required', 'numeric'],
-            'age'       => ['required', 'numeric'],
-            'breed'     => ['required', 'string'],
-            'location'  => ['required', 'string']
+            'name'     => ['required', 'string'],
+            'photo'    => ['required', 'image'],
+            'kind'     => ['required', 'string'],
+            'weight'   => ['required', 'numeric'],
+            'age'      => ['required', 'numeric'],
+            'breed'    => ['required', 'string'],
+            'location' => ['required', 'string']        
         ]);
 
         if ($validated) {
@@ -61,13 +54,12 @@ class PetController extends Controller
                 'weight'   => $request->weight,
                 'age'      => $request->age,
                 'breed'    => $request->breed,
-                'location' => $request->location
+                'location' => $request->location,
             ]);
 
             if ($pet) {
-                return redirect('pets')->with('message', 'The pet: '.$request->fullname.' was successfully added!');
+                return redirect('pets')->with('message', 'The pet: '.$request->name.' was successfully added!');
             }
-
         }
     }
 
@@ -81,9 +73,6 @@ class PetController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\Response
      */
     public function edit(Pet $pet)
     {
@@ -92,22 +81,17 @@ class PetController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Pet $pet)
     {
         //dd($request->all());
         $validated = $request->validate([
-            'name'      => ['required', 'string'],
-            'photo'     => ['required', 'image'],
-            'kind'      => ['required'],
-            'weight'    => ['required', 'numeric'],
-            'age'       => ['required', 'numeric'],
-            'breed'     => ['required', 'string'],
-            'location'  => ['required', 'string']
+            'name'     => ['required', 'string'],
+            'kind'     => ['required', 'string'],
+            'weight'   => ['required', 'numeric'],
+            'age'      => ['required', 'numeric'],
+            'breed'    => ['required', 'string'],
+            'location' => ['required', 'string'] 
         ]);
 
         if ($validated) {
@@ -119,32 +103,28 @@ class PetController extends Controller
                 if (file_exists($image_path)) {
                         unlink($image_path);
                 }
-
                 $photo = time() . '.' . $request->photo->extension();
                 $request->photo->move(public_path('images'), $photo);
             } else {
                 $photo = $request->photoactual;
             }
     
-            $pet->name      = $request->name;
-            $pet->photo     = $photo;
-            $pet->kind      = $request->kind;
-            $pet->weight    = $request->weight;
-            $pet->age       = $request->age;
-            $pet->breed     = $request->breed;
-            $pet->location  = $request->location;
+            $pet->name     = $request->name;
+            $pet->photo    = $photo;
+            $pet->kind     = $request->kind;
+            $pet->weight   = $request->weight;
+            $pet->age      = $request->age;
+            $pet->breed    = $request->breed;
+            $pet->location = $request->location;
 
             if ($pet->save()) {
                 return redirect('pets')->with('message', 'The pet: '.$request->name.' was successfully edited!');
             }
-
         }
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     *
      */
     public function destroy(Pet $pet)
     {

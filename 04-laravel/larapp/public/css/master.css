@@ -312,7 +312,6 @@ main {
                         }
                         a:is(:hover) img {
                             transform: scale(1);
-
                         }
 
                     }
@@ -333,41 +332,29 @@ main {
                             font-size: 14px;
                         }
                     }
+                    td:nth-child(3) {
+                        display: flex;
+                        form {
+                            margin: 0;
+                            padding: 0;
+                            button {
+                                background: none;
+                                border: none;
+                                display: block;
+                                height: 40px;
+                                cursor: pointer;
+                                transform: scale(0.9);
+                                transition: all 0.2s ease-in;
+                                width: 40px;
+                                padding: 0;
+                                &:hover {
+                                    transform: scale(1);
+                                }
+                            }
+                        }
+                        
+                    }
                 }
-            }
-        }
-    }
-
-    /* - - - - - - - - - - - - - - - - - - - - - - */
-    /* C R E A T E   &   E D I T   &   S H O W  */
-    section.create,
-    section.edit,
-    section.show {
-        h1 {
-            font-size: 28px;
-            color: #fff;
-            text-align: center;
-            text-transform: uppercase;
-            margin: 2.4rem 0;
-        }
-
-        form {
-            margin-bottom: 1rem;
-            img#upload {
-                border-radius: 200px;
-                border: 2px solid #fff;
-                object-fit: cover;
-                cursor: pointer;
-                height: 240px;
-                transition: all 0.4s ease-out;
-                width: 240px;
-                &:hover {
-                    transform: scale(1.05);
-                }
-            }
-
-            input#photo {
-                display: none;
             }
         }
     }
@@ -385,6 +372,10 @@ main {
             height: 280px;
             width: 280px;
         }
+        p.role {
+            color: #fff;
+            font-size: 1.4rem;
+        }
         div.info {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -394,7 +385,7 @@ main {
 
             p {
                 border-radius: 50px;
-                font-size: 18px;
+                font-size: 16px;
                 background-color: var(--color-frd);
                 padding: 10px;
                 margin: 0;

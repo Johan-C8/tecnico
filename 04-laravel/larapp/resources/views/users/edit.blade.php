@@ -14,9 +14,9 @@
 <section class="register create">
     <form action="{{ url('users/'.$user->id) }}" method="post" enctype="multipart/form-data">
         @csrf
-        @method('puth')
+        @method('put')
         <input type="hidden" name="photoactual" value="{{ $user->photo }}">
-        <img src="{{ asset('images/'. $user->photo) }}" id="upload" width="240px" alt="Upload">
+        <img src="{{ asset('images/'.$user->photo) }}" id="upload" width="240px" alt="Upload">
         <input type="file" name="photo" id="photo" accept="image/*">
         <input type="number" name="document" placeholder="Document" value="{{ old('document', $user->document) }}">
         <input type="text" name="fullname" placeholder="Full Name" value="{{ old('fullname', $user->fullname) }}">
@@ -28,8 +28,7 @@
         <input type="date" name="birthdate" placeholder="BirthDate" value="{{ old('birthdate', $user->birthdate) }}">
         <input type="text" name="phone" placeholder="Phone Number" value="{{ old('phone', $user->phone) }}">
         <input type="email" name="email" placeholder="Email" value="{{ old('email', $user->email) }}">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">EDIT</button>
+        <button type="submit">Edit</button>
     </form>
 </section>
 @endsection

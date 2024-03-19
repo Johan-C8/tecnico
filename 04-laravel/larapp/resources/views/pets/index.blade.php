@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Users Page - PetsApp')
+@section('title', 'Pets Page - PetsApp')
 
 @section('content')
 <header class="nav level-2">
@@ -12,30 +12,30 @@
     </a>
 </header>
 <section class="module">
-    <h1>Module Users</h1>
-    <a class="add" href="{{ url('users/create') }}">
+    <h1>Module Pets</h1>
+    <a class="add" href="{{ url('pets/create') }}">
         <img src="{{ asset('images/ico-add.svg') }}" width="30px" alt="Add">
-        Add User
+        Add Pet
     </a>
     <table>
         <tbody>
-        @foreach ($users as $user)
+        @foreach ($pets as $pet)
             <tr>
                 <td>
-                    <img src="{{ asset('images/'.$user->photo) }}" alt="User">
+                    <img src="{{ asset('images/'.$pet->photo) }}" alt="pets">
                 </td>
                 <td>
-                    <span>{{ $user->fullname }}</span>
-                    <span>{{ $user->role }}</span>
+                    <span>{{ $pet->name }}</span>
+                    <span>{{ $pet->kind }}</span>
                 </td>
                 <td>
-                    <a href="{{ url('users/' . $user->id) }}" class="show">
+                    <a href="{{ url('pets/' . $pet->id) }}" class="show">
                         <img src="{{ asset('images/ico-show.svg') }}" alt="Show">
                     </a>
-                    <a href="{{ url('users/' . $user->id . '/edit') }}" class="edit">
+                    <a href="{{ url('pets/' . $pet->id . '/edit') }}" class="edit">
                         <img src="{{ asset('images/ico-edit.svg') }}" alt="Edit">
                     </a>
-                    <form action="{{ url('users/'.$user->id) }}" method="post">
+                    <form action="{{ url('pets/'.$pet->id) }}" method="post">
                         @csrf
                         @method('delete')
                         <button type="button" class="btn-delete">
@@ -49,8 +49,8 @@
         <tfoot>
             <tr>
                 <td colspan="3">
-                    {{ $users->links('layouts.paginator') }}
-                    {{-- {{ $users->links() }} --}}
+                    {{ $pets->links('layouts.paginator') }}
+                    {{-- {{ $pets->links() }} --}}
                 </td>
             </tr>
         </tfoot>

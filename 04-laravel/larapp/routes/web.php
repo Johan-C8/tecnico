@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +40,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resources([
     'users' => UserController::class,
-    //'pets' => PetController::class,
+    'pets' => PetController::class,
     //'adoptions' => AdoptionController::class
 ]);
 
